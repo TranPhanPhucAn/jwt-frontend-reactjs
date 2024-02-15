@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Login.scss";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -31,12 +31,29 @@ const Login = (props) => {
     let response = await loginUser(valueLogin, password);
     if (response && response.data && +response.data.EC === 0) {
       //success
+      let data = {
+        isAuthenticated: true,
+        token: "fake token",
+      };
+      sessionStorage.setItem("account", JSON.stringify(data));
       navigate("/users");
+      window.location.reload();
     }
     if (response && response.data && +response.data.EC !== 0) {
       toast.error(response.data.EM);
     }
   };
+  const handlePressEnter = (event) => {
+    if (event.keyCode === 13 && event.key === "Enter") {
+      handleLogin();
+    }
+  };
+  useEffect(() => {
+    let session = sessionStorage.getItem("account");
+    if (session) {
+      navigate("/");
+    }
+  }, []);
   return (
     <div className="login-container">
       <div className="container">
@@ -72,6 +89,7 @@ const Login = (props) => {
               onChange={(event) => {
                 setPassword(event.target.value);
               }}
+              onKeyDown={(event) => handlePressEnter(event)}
             />
             <button className="btn btn-primary" onClick={() => handleLogin()}>
               Login

@@ -3,7 +3,7 @@ import "./Register.scss";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import axios from "axios";
+// import axios from "axios";
 import { registerNewUser } from "../../services/userService";
 const Register = (props) => {
   const [email, setEmail] = useState("");

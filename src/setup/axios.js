@@ -1,10 +1,11 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 // Set config defaults when creating the instance
 const instance = axios.create({
   baseURL: "http://localhost:8080",
 });
-
+instance.defaults.withCredentials = true;
 // // Alter defaults after instance has been created
 // instance.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 
@@ -30,6 +31,18 @@ instance.interceptors.response.use(
   function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
+    const status = error.response?.status || 500;
+    switch (status) {
+      case 401: {
+        toast.error("Unauthorized the user. Please login ...");
+        // window.location.href = "/login";
+        return error.response.data;
+      }
+      case 403: {
+        toast.error(`You don't have the permission to access this resource...`);
+        return error.response.data;
+      }
+    }
     return Promise.reject(error);
   }
 );

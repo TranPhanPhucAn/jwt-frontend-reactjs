@@ -6,21 +6,11 @@ import { UserContext } from "../context/UserContext";
 
 const PrivateRoutes = (props) => {
   const { user } = useContext(UserContext);
-
-  // let navigate = useNavigate();
-  // useEffect(() => {
-  //   let session = sessionStorage.getItem("account");
-  //   if (!session) {
-  //     navigate("/login");
-  //   }
-  // }, []);
-
-  // return (
-  //   <>
-  //     <Route path={props.path} component={props.component} />
-  //   </>
-  // );
-  let session = sessionStorage.getItem("account");
-  return session ? <Outlet /> : <Navigate to="/login" />;
+  if (user && user.isAuthenticated === true) {
+    return <Outlet />;
+  } else {
+    return <Navigate to="/login" />;
+  }
+  // return session ? <Outlet /> : <Navigate to="/login" />;
 };
 export default PrivateRoutes;

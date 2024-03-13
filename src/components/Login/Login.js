@@ -46,7 +46,9 @@ const Login = (props) => {
           username,
         },
       };
+      localStorage.setItem("jwt", token);
       loginContext(data);
+      navigate("/users");
       // sessionStorage.setItem("account", JSON.stringify(data));
       // navigate("/users");
       // window.location.reload();
@@ -60,12 +62,12 @@ const Login = (props) => {
       handleLogin();
     }
   };
-  useEffect(() => {
-    let session = sessionStorage.getItem("account");
-    if (session) {
-      navigate("/");
-    }
-  }, []);
+  // useEffect(() => {
+  //   let session = sessionStorage.getItem("account");
+  //   if (session) {
+  //     navigate("/");
+  //   }
+  // }, []);
   return (
     <div className="login-container">
       <div className="container">

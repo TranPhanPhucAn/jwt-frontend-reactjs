@@ -7,7 +7,9 @@ const instance = axios.create({
 });
 instance.defaults.withCredentials = true;
 // // Alter defaults after instance has been created
-// instance.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+instance.defaults.headers.common[
+  "Authorization"
+] = `Bearer ${localStorage.getItem("jwt")}`;
 
 // Add a request interceptor
 instance.interceptors.request.use(
@@ -34,7 +36,7 @@ instance.interceptors.response.use(
     const status = error.response?.status || 500;
     switch (status) {
       case 401: {
-        toast.error("Unauthorized the user. Please login ...");
+        // toast.error("Unauthorized the user. Please login ...");
         // window.location.href = "/login";
         return error.response.data;
       }
@@ -42,8 +44,11 @@ instance.interceptors.response.use(
         toast.error(`You don't have the permission to access this resource...`);
         return error.response.data;
       }
+      default: {
+        return error.response.data;
+      }
     }
-    return Promise.reject(error);
+    // return Promise.reject(error);
   }
 );
 export default instance;

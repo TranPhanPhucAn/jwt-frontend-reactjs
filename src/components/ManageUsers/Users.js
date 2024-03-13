@@ -134,7 +134,7 @@ const Users = (props) => {
                               className="btn btn-danger"
                               onClick={() => handleDeleteUser(item)}
                             >
-                              <i class="fa fa-trash"></i>
+                              <i className="fa fa-trash"></i>
                               Delete
                             </button>
                           </td>

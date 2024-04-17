@@ -18,7 +18,7 @@ function NavHeader(props) {
   const { user, logoutContext } = useContext(UserContext);
   let navigate = useNavigate();
 
-  const [isShow, setIsShow] = useState(true);
+  // const [isShow, setIsShow] = useState(true);
   const location = useLocation();
   // useEffect(() => {
   //   if (location.pathname === "/login") {
@@ -35,20 +35,16 @@ function NavHeader(props) {
       toast.error(data.EM);
     }
   };
-  if ((user && user.isAuthenticated === true) || location.pathname === "/") {
+  if (
+    (user && user.isAuthenticated === true) ||
+    location.pathname === "/" ||
+    location.pathname === "/about"
+  ) {
     return (
       <div className="nav-header">
-        {/* {isShow === true && ( */}
-        {/* <div className="topnav">
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/users">Users</NavLink>
-          <NavLink to="/project">Project</NavLink>
-          <NavLink to="/about">About</NavLink>
-        </div> */}
-        {/* )} */}
         <Navbar expand="lg" className="bg-body-tertiary" bg="header">
           <Container>
-            <Navbar.Brand href="#home">JWT</Navbar.Brand>
+            <Navbar.Brand href="/">RM</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
@@ -61,8 +57,8 @@ function NavHeader(props) {
                 <NavLink to="/roles" className="nav-link">
                   Roles
                 </NavLink>
-                <NavLink to="/project" className="nav-link">
-                  Project
+                <NavLink to="/group-role" className="nav-link">
+                  Group-Roles
                 </NavLink>
                 <NavLink to="/about" className="nav-link">
                   About

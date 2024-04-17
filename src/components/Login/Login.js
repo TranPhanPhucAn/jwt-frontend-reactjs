@@ -5,7 +5,8 @@ import { toast } from "react-toastify";
 import { loginUser } from "../../services/userService";
 import { UserContext } from "../../context/UserContext";
 const Login = (props) => {
-  const { loginContext } = useContext(UserContext);
+  const { user, loginContext } = useContext(UserContext);
+  // const { loginContext } = useContext(UserContext);
   let navigate = useNavigate();
   const [valueLogin, setValueLogin] = useState("");
   const [password, setPassword] = useState("");
@@ -62,22 +63,21 @@ const Login = (props) => {
       handleLogin();
     }
   };
-  // useEffect(() => {
-  //   let session = sessionStorage.getItem("account");
-  //   if (session) {
-  //     navigate("/");
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (user && user.isAuthenticated) {
+      navigate("/");
+    }
+  }, []);
   return (
     <div className="login-container">
       <div className="container">
         <div className="row px-3 px-sm-0">
           <div className="content-left col-12 d-none col-sm-7 d-sm-block">
-            <div className="brand">JWT</div>
-            <div className="detail">Learning SERN all things</div>
+            <div className="brand">Manage resource</div>
+            <div className="detail">Manage resource you can access</div>
           </div>
           <div className="content-right col-sm-5 col-12 d-flex flex-column gap-3 py-3">
-            <div className="brand d-sm-none">JWT</div>
+            <div className="brand d-sm-none">RM</div>
             <input
               type="text"
               className={
